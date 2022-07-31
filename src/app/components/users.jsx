@@ -62,7 +62,7 @@ const Users = ({ users, handleDelete, handleBookmark }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setselectedProf] = useState();
-    const pageSize = 1;
+    const pageSize = 4;
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
     }, []);
@@ -84,7 +84,7 @@ const Users = ({ users, handleDelete, handleBookmark }) => {
     };
 
     return (
-        <div сlassName="d-flex">
+        <div className="d-flex">
             {professions && (
                 <div className="d-flex flex-column flex-shrink-0 p-3">
                     <GroupList
