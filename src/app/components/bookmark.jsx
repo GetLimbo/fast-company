@@ -24,8 +24,8 @@ const BookMark = ({ status, handleBookmark, ...rest }) => {
     );
 };
 BookMark.propTypes = {
-    status: PropTypes.bool.isRequired,
-    handleBookmark: PropTypes.func.isRequired
+    status: PropTypes.bool,
+    handleBookmark: PropTypes.func
 };
 
 export default BookMark;

@@ -69,16 +69,41 @@ const Users = ({ users, handleDelete, handleBookmark }) => {
 
     const handleProfessionSelect = (item) => {
         setselectedProf(item);
+        setCurrentPage(1);
     };
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
-    const filtereUsers = selectedProf
-        ? users.filter((user) => user.profession === selectedProf)
-        : users;
+
+    let filtereUsers = null;
+
+    if (selectedProf) {
+        filtereUsers = users.filter((user) => {
+            // if (
+            //     JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+            // ) {
+            //     console.log(
+            //         "if",
+            //         JSON.stringify(user.profession),
+            //         JSON.stringify(selectedProf)
+            //     );
+            // }
+            return (
+                JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+            );
+        });
+    } else {
+        filtereUsers = users;
+    }
+
     const count = filtereUsers.length;
 
-    const userCrop = paginate(filtereUsers, currentPage, pageSize);
+    const startIndex = (currentPage - 1) * pageSize;
+    let newCurrentPage = currentPage;
+    if (startIndex >= filtereUsers.length) {
+        newCurrentPage = newCurrentPage - 1;
+    }
+    const userCrop = paginate(filtereUsers, newCurrentPage, pageSize);
     const cleanFilter = () => {
         setselectedProf();
     };
@@ -133,7 +158,7 @@ const Users = ({ users, handleDelete, handleBookmark }) => {
                         itemCount={count}
                         pageSize={pageSize}
                         onPageChange={handlePageChange}
-                        currentPage={currentPage}
+                        currentPage={newCurrentPage}
                     />
                 </div>
             </div>

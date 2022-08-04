@@ -32,18 +32,20 @@
 // }
 
 // export default App;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Users from "./components/users";
 import api from "./api";
 
 const App = () => {
-    const [users, setUsers] = useState(
-        api.users.fetchAll().map((obj) => ({ ...obj, newBookMarkFild: false }))
-    );
+    const [users, setUsers] = useState();
 
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
+
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+    }, []);
 
     const handleBookmark = (id) => {
         setUsers(
@@ -58,11 +60,13 @@ const App = () => {
     };
 
     return (
-        <Users
-            users={users}
-            handleDelete={handleDelete}
-            handleBookmark={handleBookmark}
-        />
+        users && (
+            <Users
+                users={users}
+                handleDelete={handleDelete}
+                handleBookmark={handleBookmark}
+            />
+        )
     );
 };
 
