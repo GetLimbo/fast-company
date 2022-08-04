@@ -109,6 +109,6 @@ User.propTypes = {
     rate: PropTypes.number.isRequired,
     onDelete: PropTypes.func.isRequired,
     handleBookmark: PropTypes.func.isRequired,
-    newBookMarkFild: PropTypes.bool.isRequired
+    newBookMarkFild: PropTypes.bool
 };
 export default User;
